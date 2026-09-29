@@ -1,26 +1,26 @@
 import { ICatalog, IProduct } from "../../types";
 
-class Catalog implements ICatalog {
+export class Catalog implements ICatalog {
     private items: IProduct[] = [];
     private selectedCard: IProduct | null = null;
 
-    setItems(items: IProduct[]): void {
+    public setItems(items: IProduct[]): void {
         this.items = items;
     }
 
-    getItems(): IProduct[] {
+    public getItems(): IProduct[] {
         return this.items
     }
 
-    getItem(id: string): IProduct | undefined {
+    public getItem(id: string): IProduct | undefined {
         return this.items.find(i => i.id === id);
     }
 
-    setSelectedItem(item: IProduct): void {
+    public setSelectedItem(item: IProduct): void {
         this.selectedCard = item;
     }
 
-    getSelectedItem(): IProduct | null {
+    public getSelectedItem(): IProduct | null {
         return this.selectedCard;
     }
 }

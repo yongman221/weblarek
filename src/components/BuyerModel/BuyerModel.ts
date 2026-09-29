@@ -1,15 +1,15 @@
-import { IBuyer, IBuyerModel, TBuyError } from "../../types";
+import { IBuyer, IBuyerModel, TBuyError, TPayment } from "../../types";
 
 export class BuyerModel implements IBuyerModel {
-    private buyer: IBuyer;
-
-    constructor() {
-        this.buyer = {
+    private buyer: IBuyer = {
             payment: '',
             email: '',
             phone: '',
             address: '',
-        };
+    };
+
+    constructor() {
+        
     }
 
     setData(partial: Partial<IBuyer>): void {
@@ -20,11 +20,11 @@ export class BuyerModel implements IBuyerModel {
     }
 
     getData(): IBuyer {
-        return this.buyer;
+        return {...this.buyer};
     }
 
     clear(): void {
-        this.user = {
+        this.buyer = {
             payment: '',
             email: '',
             phone: '',
@@ -35,9 +35,9 @@ export class BuyerModel implements IBuyerModel {
     validate(): TBuyError {
         let error: TBuyError = {};
         for (const key of Object.keys(this.buyer)) {
-            const value = this.buyer[key];
+            const value: string | TPayment = this.buyer[key as keyof IBuyer];
             if (!value) {
-                error[key] = `Поле ${value} не заполнено`;
+                error[key as keyof IBuyer] = `Поле ${key} не заполнено`;
             }
         }
 
