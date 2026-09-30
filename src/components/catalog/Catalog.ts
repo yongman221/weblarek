@@ -2,7 +2,7 @@ import { ICatalog, IProduct } from "../../types";
 
 export class Catalog implements ICatalog {
     private items: IProduct[] = [];
-    private selectedCard: IProduct | undefined = undefined;
+    private selectedCard: IProduct | undefined;
 
     constructor() {
 
