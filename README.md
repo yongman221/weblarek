@@ -108,27 +108,102 @@ Presenter - презентер содержит основную логику п
 
 ### Данные
 
+#### Типы
+
+`ApiPostMethods = 'POST' | 'PUT' | 'PATCH'` - допустимые методы для запросов на сервер
+`TPayment = 'card' | 'cash' | ''` - способы оплаты. Пустая строка означает, что метод оплаты не выбран
+`TBuyError = Partial<Record<keyof IBuyer, string>>` - объектный тип ошибки. Нужен для валидации полей формы при оформлении заказа.
+
 #### Интерфейс IApi
+
+`interface IApi` - описывает контракт класса для работы с сервером
+
+Методы:
+`get<T extends object>(uri: string): Promise<T>` - выполняет GET-запрос на заданный эндпойт
+`post<T extends object>(uri: string, data: object, method?: ApiPostMethods): Promise<T>` - выполняет POST-запрос на заданный эндпойт. Отправляет data в теле запроса.
 
 #### Интерфейс IProduct
 
+`interface IProduct` - описывает продукт
+
+Поля:
+`id: string`
+`description: string`
+`image: string`
+`title: string`
+`category: string`
+`price: number | null`
+
 #### Интерфейс IBuyer
+
+`interface IBuyer` - описывает информацию о покупателе, необходимую для оформления заказа
+
+Поля:
+`payment: TPayment`
+`email: string`
+`phone: string`
+`address: string`
 
 #### Интерфейс ICatalog
 
+`interface ICatalog` - контракт модели каталога товаров
+
+Методы:
+`setItems(items: IProduct[]): void`
+`getItems(): IProduct[]`
+`getItem(productId: string): IProduct | undefined`
+`setSelectedItem(productId: string): void`
+`getSelectedItem(): IProduct | undefined`
+
 #### Интерфейс ICart
+
+`interface ICart` - контракт модели корзины товаров
+Методы:
+`getItems(): IProduct[]`
+`addItem(item: IProduct): void`
+`deleteItem(productId: string): void`
+`clear(): void`
+`getTotalPrice(): number`
+`getCount(): number`
+`hasItem(productId: string): boolean`
 
 #### Интерфейс IBuyerModel
 
+`interface IBuyerModel` - контракт модели данных покупателя
+
+Методы:
+`setData(partial: Partial<IBuyer>): void`
+`getData(): IBuyer`
+`clear(): void`
+`validate(): TBuyError`
+
 #### Интерфейс ResponseProduct
+
+`interface ResponseProduct` - описывает структуру ответа сервера на запрос о товарах
+
+Поля:
+`id: string`
+`items: IProduct[]`
 
 #### Интерфейс ResponseOrder
 
+`interface ResponseOrder` - ответ сервера на оформление заказа
+
+Поля:
+`id: string`
+`total: number`
+
 #### Интерфейс Order
+
+`interface Order` - данные, отправляемые на сервер при заказе
+
+Поля:
+`total: number`
+`items: string[]`
 
 ### Модели данных
 
-#### Класс BuyerModel.ts
+#### Класс BuyerModel
 
 Хранит и валидирует информацию о покупателе.
 
