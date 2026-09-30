@@ -127,22 +127,22 @@ Presenter - презентер содержит основную логику п
 `interface IProduct` - описывает продукт
 
 Поля:
-`id: string`
-`description: string`
-`image: string`
-`title: string`
-`category: string`
-`price: number | null`
+`id: string` - уникальный идентификатор товара
+`description: string` - описание товара
+`image: string` - путь к изображению товара
+`title: string` - название товара
+`category: string` - категория товара
+`price: number | null` - цена товара.
 
 #### Интерфейс IBuyer
 
 `interface IBuyer` - описывает информацию о покупателе, необходимую для оформления заказа
 
 Поля:
-`payment: TPayment`
-`email: string`
-`phone: string`
-`address: string`
+`payment: TPayment` - тип оплаты
+`email: string` - почта пользователя
+`phone: string` - номер телефона
+`address: string` - адрес
 
 #### Интерфейс ICatalog
 
@@ -158,6 +158,7 @@ Presenter - презентер содержит основную логику п
 #### Интерфейс ICart
 
 `interface ICart` - контракт модели корзины товаров
+
 Методы:
 `getItems(): IProduct[]`
 `addItem(item: IProduct): void`
@@ -182,24 +183,24 @@ Presenter - презентер содержит основную логику п
 `interface ResponseProduct` - описывает структуру ответа сервера на запрос о товарах
 
 Поля:
-`id: string`
-`items: IProduct[]`
+`total: number` - общее количество товаров
+`items: IProduct[]` - массив товаров
 
 #### Интерфейс ResponseOrder
 
 `interface ResponseOrder` - ответ сервера на оформление заказа
 
 Поля:
-`id: string`
-`total: number`
+`id: string` - идентификатор созданного заказа
+`total: number` - сумма списания
 
 #### Интерфейс Order
 
 `interface Order` - данные, отправляемые на сервер при заказе
 
 Поля:
-`total: number`
-`items: string[]`
+`total: number` - общая сумма всех товаров
+`items: string[]` - товары в корзине
 
 ### Модели данных
 
@@ -218,7 +219,7 @@ Presenter - презентер содержит основную логику п
 `clear(): void` - очистка данных покупателя
 `validate(): TBuyError` - проверка полей на заполненность. Если поле пустое - записываем ошибку в объект
 
-#### Класс Cart.ts
+#### Класс Cart
 
 Хранит массив товаров, добавленных в корзину.
 
@@ -236,7 +237,7 @@ Presenter - презентер содержит основную логику п
 `getCount(): number` - возвращает количество товаров
 `hasItem(id: string): boolean` - проверяет наличие товара в корзине по id
 
-#### Класс Catalog.ts
+#### Класс Catalog
 
 Реализация модели товаров для каталога
 
@@ -254,3 +255,14 @@ Presenter - презентер содержит основную логику п
 `getSelectedItem(): IProduct | null` - возвращает выбранный товар
 
 ### Слой коммуникации
+
+#### Класс ApiServer
+
+Отвечает за обмен даееысм с сервером магазина. Используя композицию, делаем экземпляр класса, реализующего iApi
+
+Конструктор класса:
+`constructor(api: IApi)` - принимает объект, реализующий класс iApi
+
+Методы класса:
+`getProduct(): Promise<ResponseProduct>` - делает GET-запрос на эндпойнт '/product/'. Получает ResponseProduct.
+`postOrder(order: Order): Promise<ResponseOrder>` - делает POST-запрос на эндпойнт '/order/'.
