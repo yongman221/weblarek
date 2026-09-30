@@ -2,7 +2,11 @@ import { ICatalog, IProduct } from "../../types";
 
 export class Catalog implements ICatalog {
     private items: IProduct[] = [];
-    private selectedCard: IProduct | null = null;
+    private selectedCard: IProduct | undefined = undefined;
+
+    constructor() {
+
+    }
 
     public setItems(items: IProduct[]): void {
         this.items = items;
@@ -12,15 +16,15 @@ export class Catalog implements ICatalog {
         return this.items
     }
 
-    public getItem(id: string): IProduct | undefined {
-        return this.items.find(i => i.id === id);
+    public getItem(productId: string): IProduct | undefined {
+        return this.items.find(i => i.id === productId);
     }
 
-    public setSelectedItem(item: IProduct): void {
-        this.selectedCard = item;
+    public setSelectedItem(productId: string): void {
+        this.selectedCard = this.items.find((product: IProduct) => product.id === productId);
     }
 
-    public getSelectedItem(): IProduct | null {
+    public getSelectedItem(): IProduct | undefined {
         return this.selectedCard;
     }
 }

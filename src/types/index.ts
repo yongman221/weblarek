@@ -28,19 +28,19 @@ export type TBuyError = Partial<Record<keyof IBuyer, string>>; // Record воз�
 export interface ICatalog {
     setItems(items: IProduct[]): void;
     getItems(): IProduct[];
-    getItem(id: string): IProduct | undefined;
-    setSelectedItem(item: IProduct): void;
-    getSelectedItem(): IProduct | null;
+    getItem(productId: string): IProduct | undefined;
+    setSelectedItem(productId: string): void;
+    getSelectedItem(): IProduct | undefined;
 }
 
 export interface ICart {
     getItems(): IProduct[];
     addItem(item: IProduct): void;
-    deleteItem(item: IProduct): void;
+    deleteItem(productId: string): void;
     clear(): void;
     getTotalPrice(): number;
     getCount(): number;
-    hasItem(id: string): boolean;
+    hasItem(productId: string): boolean;
 }
 
 export interface IBuyerModel {
@@ -48,4 +48,19 @@ export interface IBuyerModel {
     getData(): IBuyer;
     clear(): void;
     validate(): TBuyError;
+}
+
+export interface ResponseProduct {
+    total: number;
+    items: IProduct[];
+}
+
+export interface ResponseOrder {
+    id: string;
+    total: number;
+}
+
+export interface Order extends IBuyer {
+    total: number;
+    items: string[];
 }

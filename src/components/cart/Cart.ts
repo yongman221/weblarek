@@ -3,6 +3,10 @@ import { ICart, IProduct } from "../../types";
 export class Cart implements ICart {
     private items: IProduct[] = [];
 
+    constructor() {
+        
+    }
+
     getItems(): IProduct[] {
         return this.items;
     }
@@ -11,8 +15,8 @@ export class Cart implements ICart {
         this.items.push(item);
     }
 
-    deleteItem(item: IProduct): void {
-        this.items = this.items.filter(i => i.id !== item.id);
+    deleteItem(productId: string): void {
+        this.items = this.items.filter(i => i.id !== productId);
     }
 
     clear(): void {
@@ -30,7 +34,7 @@ export class Cart implements ICart {
         return this.items.length;
     }
 
-    hasItem(id: string): boolean {
-        return this.items.some(i => i.id === id);
+    hasItem(productId: string): boolean {
+        return this.items.some(i => i.id === productId);
     }
 }
