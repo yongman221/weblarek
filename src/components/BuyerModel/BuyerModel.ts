@@ -2,7 +2,7 @@ import { IBuyer, IBuyerModel, TBuyError, TPayment } from "../../types";
 
 export class BuyerModel implements IBuyerModel {
     private buyer: IBuyer = {
-            payment: '',
+            payment: null,
             email: '',
             phone: '',
             address: '',
@@ -25,7 +25,7 @@ export class BuyerModel implements IBuyerModel {
 
     clear(): void {
         this.buyer = {
-            payment: '',
+            payment: null,
             email: '',
             phone: '',
             address: '',
@@ -33,14 +33,24 @@ export class BuyerModel implements IBuyerModel {
     }
 
     validate(): TBuyError {
-        let error: TBuyError = {};
-        for (const key of Object.keys(this.buyer)) {
-            const value: string | TPayment = this.buyer[key as keyof IBuyer];
-            if (!value) {
-                error[key as keyof IBuyer] = `Поле ${key} не заполнено`;
-            }
+        const errors: TBuyError = {};
+        
+        if (!this.buyer.payment) {
+            errors.payment = "Выберите тип оплаты";
         }
 
-        return error;
+        if (!this.buyer.address) {
+            errors.address = "Введите адрес";
+        }
+
+        if (!this.buyer.email) {
+            errors.email = "Введите почту";
+        }
+
+        if (!this.buyer.phone) {
+            errors.phone = "Введите номер телефона";
+        }
+
+        return errors;
     }
 }

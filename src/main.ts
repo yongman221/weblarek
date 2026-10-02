@@ -8,9 +8,9 @@ import { API_URL } from './utils/constants';
 import { ApiServer } from './components/ApiServer/ApiServer';
 import { ResponseProduct } from './types';
 
-let buyer = new BuyerModel();
-let cart = new Cart();
-let catalog  = new Catalog();
+const buyer = new BuyerModel();
+const cart = new Cart();
+const catalog  = new Catalog();
 
 // проверка catalog
 console.log("/--------------Проверка класса каталога---------------/");
@@ -27,12 +27,12 @@ console.log("Избранный товар: ", catalog.getSelectedItem())
 // проверка buyer
 console.log("/--------------Проверка класса покупателя---------------/");
 buyer.setData({payment: 'card', email: 'aitema555@gmail.com'});
-console.log(buyer.getData());
-console.log(buyer.validate());
+console.log("Данные покупателя: ", buyer.getData());
+console.log("Незаполненные поля: ", buyer.validate());
 buyer.setData({phone: "89526160223", address: "1"});
-console.log(buyer);
+console.log("Данные покупателя: ", buyer.getData());
 buyer.clear();
-console.log(buyer);
+console.log("Очистка...\nДанные покупателя: ",buyer.getData());
 
 // проверка cart
 console.log("/--------------Проверка класса корзины---------------/");
@@ -49,8 +49,8 @@ if (productToCart1 && cart.hasItem(productToCart1.id)) {
     cart.deleteItem(productToCart1.id)
 }
 
-if (productToCart1) {
-    console.log(cart.hasItem(productToCart1.id));
+if (productToCart1 && cart.hasItem(productToCart1.id)) {
+    console.log(`Продукт ${productToCart1.id} есть в корзине`)
 }
 
 console.log("/--------------Проверка запроса на сервер---------------/");
@@ -60,6 +60,9 @@ const apiShop = new ApiServer(api);
 apiShop.getProduct()
     .then((data: ResponseProduct) => {
         catalog.setItems(data.items);
-    });
+    })
+    .catch((err) => {
+        console.error(err);
+    })
 
 console.log(catalog.getItems());
