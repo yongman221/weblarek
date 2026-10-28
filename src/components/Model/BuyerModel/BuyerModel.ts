@@ -1,4 +1,4 @@
-import { IBuyer, IBuyerModel, TBuyError, TPayment } from "../../types";
+import { IBuyer, IBuyerModel, TBuyError, TPayment } from "../../../types";
 
 export class BuyerModel implements IBuyerModel {
     private buyer: IBuyer = {

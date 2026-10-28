@@ -1,4 +1,4 @@
-import { ICatalog, IProduct } from "../../types";
+import { ICatalog, IProduct } from "../../../types";
 
 export class Catalog implements ICatalog {
     private items: IProduct[] = [];
