@@ -1,5 +1,5 @@
 import './scss/styles.scss';
-import { BuyerModel } from './components/Model/BuyerModel/BuyerModel';
+import { BuyerModel } from './components/Model/BuyerModel';
 import { Catalog } from './components/Model/CatalogModel/Catalog';
 import { Cart } from './components/Model/CartModel/Cart';
 import { apiProducts } from './utils/data';
