@@ -1,4 +1,4 @@
-import { ensureAllElements, ensureElement } from "../../utils/utils";
+import { ensureElement } from "../../utils/utils";
 import { Component } from "../base/Component";
 import { IEvents } from "../base/Events";
 

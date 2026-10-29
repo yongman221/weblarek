@@ -18,5 +18,6 @@ export const categoryMap = {
 
 export const settings = {
   paymentActiveClass: "button_alt-active",
+  modalActive: "modal_active",
 };
 
