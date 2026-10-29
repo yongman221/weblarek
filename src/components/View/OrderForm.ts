@@ -32,7 +32,7 @@ export class OrderForm extends Form<TOrderForm> {
         });
     }
 
-    set addres(value: string) {
+    set address(value: string) {
         this.addresInput.value = value;
     }
 }
