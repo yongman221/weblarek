@@ -64,3 +64,48 @@ export interface Order extends IBuyer {
     total: number;
     items: string[];
 }
+
+// представления
+export type TCard = Pick<IProduct, 'title' | 'price'>
+
+export type TCardBasket = TCard & {index : number};
+
+export interface ICardActions {
+    onclick?: (event: MouseEvent) => void;
+}
+
+export type TCardCatalog = TCard & Pick<IProduct, 'category' | 'image'>;
+
+export type TCardPreview = TCard & Pick<IProduct, "image" | 'category' | 'description'> &
+                            {buttonActive: boolean, buttonText: string};
+
+export type TCatalog = {
+    items: HTMLElement[]
+};
+
+export type TForm = {
+    buttonActive: boolean,
+    formError: string
+};
+
+export type TContactsForm = TForm & Pick<IBuyer, 'email' | 'phone'>;
+
+export type TOrderForm = TForm & Pick<IBuyer, 'payment' | 'address'>;
+
+export interface IHeader {
+    counter: number;
+};
+
+export type TModal = {
+    content: HTMLElement;
+};
+
+export type TSuccessOrder = {
+    description: number
+};
+
+export type TBasket = {
+    items: HTMLElement[],
+    price: number,
+    buttonActive: boolean,
+};

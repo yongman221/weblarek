@@ -1,11 +1,8 @@
+import { TModal } from "../../types";
 import { settings } from "../../utils/constants";
 import { ensureElement } from "../../utils/utils";
 import { Component } from "../base/Component";
 import { IEvents } from "../base/Events";
-
-export type TModal = {
-    content: HTMLElement;
-}
 
 export class Modal extends Component<TModal> {
     protected contentElement: HTMLElement;

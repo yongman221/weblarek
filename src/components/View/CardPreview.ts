@@ -1,11 +1,7 @@
-import { IProduct } from "../../types";
+import { ICardActions, TCardPreview } from "../../types";
 import { categoryMap, CDN_URL } from "../../utils/constants";
 import { ensureElement } from "../../utils/utils";
-import { Card, TCard } from "./Card";
-import { ICardActions } from "./CardBasket";
-
-export type TCardPreview = TCard & Pick<IProduct, "image" | 'category' | 'description'> &
-                            {buttonActive: boolean, buttonText: string};
+import { Card } from "./Card";
 
 export class CardPreview extends Card<TCardPreview> {
     protected imageElement: HTMLImageElement;

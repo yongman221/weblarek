@@ -1,9 +1,6 @@
-import { ensureAllElements, ensureElement } from "../../utils/utils";
+import { TCatalog } from "../../types";
+import { ensureElement } from "../../utils/utils";
 import { Component } from "../base/Component";
-
-export type TCatalog = {
-    items: HTMLElement[]
-};
 
 export class Catalog extends Component<TCatalog> {
     protected catalogElement: HTMLElement;

@@ -1,11 +1,7 @@
+import { TForm } from "../../types";
 import { ensureElement } from "../../utils/utils";
 import { Component } from "../base/Component";
 import { IEvents } from "../base/Events";
-
-export type TForm = {
-    buttonActive: boolean,
-    formError: string
-};
 
 export class Form<T extends TForm> extends Component<T> {
     protected submitButton: HTMLButtonElement;

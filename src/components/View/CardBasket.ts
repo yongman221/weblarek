@@ -1,11 +1,6 @@
+import { ICardActions, TCardBasket } from "../../types";
 import { ensureElement } from "../../utils/utils";
-import { Card, TCard } from "./Card";
-
-export type TCardBasket = TCard & {index : number};
-
-export interface ICardActions {
-    onclick?: (event: MouseEvent) => void;
-}
+import { Card } from "./Card";
 
 export class CardBasket extends Card<TCardBasket> {
     protected deleteButton: HTMLButtonElement;

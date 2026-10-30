@@ -1,10 +1,9 @@
-import { IBuyer, TPayment } from "../../types";
+import { IBuyer, TOrderForm, TPayment } from "../../types";
 import { settings } from "../../utils/constants";
 import { ensureAllElements, ensureElement } from "../../utils/utils";
 import { IEvents } from "../base/Events";
-import { Form, TForm } from "./Form";
+import { Form } from "./Form";
 
-export type TOrderForm = TForm & Pick<IBuyer, 'payment' | 'address'>
 
 export class OrderForm extends Form<TOrderForm> {
     protected paymentButtons: HTMLButtonElement[];

@@ -1,9 +1,9 @@
-import { IProduct } from "../../types";
+import { TCard } from "../../types";
 import { ensureElement } from "../../utils/utils";
 import { Component } from "../base/Component";
 
 
-export type TCard = Pick<IProduct, 'title' | 'price'>
+
 
 export class Card<T extends TCard> extends Component<T> {
     protected titleElement: HTMLElement;

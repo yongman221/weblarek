@@ -1,10 +1,7 @@
-import { IProduct } from "../../types";
+import { ICardActions, IProduct, TCardCatalog } from "../../types";
 import { categoryMap, CDN_URL } from "../../utils/constants";
 import { ensureElement } from "../../utils/utils";
-import { Card, TCard } from "./Card";
-import { ICardActions } from "./CardBasket";
-
-export type TCardCatalog = TCard & Pick<IProduct, 'category' | 'image'>;
+import { Card } from "./Card";
 
 export class CardCatalog extends Card<TCardCatalog> {
     protected categoryElement: HTMLElement;
