@@ -12,8 +12,8 @@ export class Card<T extends TCard> extends Component<T> {
     constructor(container: HTMLElement) {
         super(container);
 
-        this.titleElement = ensureElement<HTMLElement>('card__title', this.container);
-        this.priceElement = ensureElement<HTMLElement>('card__price', this.container);
+        this.titleElement = ensureElement<HTMLElement>('.card__title', this.container);
+        this.priceElement = ensureElement<HTMLElement>('.card__price', this.container);
     }
 
     set title(value: string) {

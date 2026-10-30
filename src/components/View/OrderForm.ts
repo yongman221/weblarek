@@ -18,12 +18,12 @@ export class OrderForm extends Form<TOrderForm> {
         this.paymentButtons.forEach(button => {
             button.addEventListener('click', () => {
                 this.events.emit("order : change", {payment : `${button.name}` as TPayment});
-            })
-        })
+            });
+        });
 
         this.addresInput.addEventListener('input', () => {
             this.events.emit("order : change", {address : this.addresInput.value});
-        })
+        });
     }
 
     set payment (value: TPayment) {
