@@ -16,7 +16,7 @@ export class Form<T extends TForm> extends Component<T> {
         this.container.addEventListener('submit', (event) => {
             event.preventDefault();
             event.stopPropagation();
-            this.events.emit("form : submit");
+            this.events.emit(`${(this.container as HTMLFormElement).name} : submit`);
         })
     }
 

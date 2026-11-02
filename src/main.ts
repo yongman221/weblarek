@@ -36,13 +36,14 @@ const orderForm = new OrderForm(events, cloneTemplate("#order"));
 const basket = new Basket(events, cloneTemplate("#basket"));
 const successOrder = new SuccessOrder(events, cloneTemplate("#success"));
 const modal = new Modal(events, ensureElement("#modal-container"));
+const cardPreview = new CardPreview(events, cloneTemplate("#card-preview"));
 
 // Функции отрисовки
 function renderCatalog() {
     catalog.render({
         items: catalogModel.getItems().map(item => {
             return new CardCatalog(cloneTemplate<HTMLElement>("#card-catalog"), {
-                onclick: () => catalogModel.setSelectedItem(item.id)
+                onclick: () => {events.emit("card : select", {id: item.id})}
             }).render({title: item.title, price: item.price, category: item.category, image: item.image});
         })
     });
@@ -52,18 +53,8 @@ function renderPreview() {
     const item = catalogModel.getSelectedItem();
     if (!item) return;
 
-    const card = new CardPreview(cloneTemplate<HTMLElement>("#card-preview"), {
-        onclick: () => {
-            if (cartModel.hasItem(item.id)) {
-                cartModel.deleteItem(item.id);
-            }
-            cartModel.addItem(item);
-            modal.close();
-        }
-    });
-
     modal.render({
-       content: card.render({
+       content: cardPreview.render({
             title: item.title,
             price: item.price,
             image: item.image,
@@ -83,7 +74,9 @@ function renderBasket() {
     basket.render({
         items: cartModel.getItems().map((item, index) => {
             return new CardBasket(cloneTemplate<HTMLElement>("#card-basket"), {
-                onclick: () => cartModel.deleteItem(item.id)
+                onclick: () => {
+                    events.emit("card : delete", {id: item.id})
+                }
             }).render({
                 title: item.title,
                 price: item.price,
@@ -146,8 +139,6 @@ events.on("buyer : changed", renderForm);
 events.on("catalog : selected", renderPreview);
 
 // События представлений
-let formsStep: 'order' | 'contacts' = 'order';
-
 events.on("basket : order", () => {
     modal.render({content: orderForm.render()})
 });
@@ -160,17 +151,13 @@ events.on("basket : open", () => {
     modal.open();
 });
 
-events.on("form : submit", () => {
-    if (formsStep === 'order') {
-        formsStep = "contacts"
-        modal.render({
-            content: contactsForm.render()
-        });
-    }
-    else {
-        postOrder();
-    }
-})
+events.on("order : submit", () => {
+    modal.render({
+        content: contactsForm.render(),
+    });
+});
+
+events.on("contacts : submit", postOrder);
 
 events.on("order : change", (data) => {
     buyerModel.setData(data);
@@ -178,11 +165,32 @@ events.on("order : change", (data) => {
 
 events.on("contacts : change", (data) => {
     buyerModel.setData(data);
-})
+});
 
 events.on("success : close", () => {
     modal.close();
-})
+});
+
+events.on<{id: string}>("card : select", (data) => {
+    catalogModel.setSelectedItem(data.id);
+});
+
+events.on<{id: string}>("card : buy", () => {
+    const item = catalogModel.getSelectedItem()
+    if (!item) return;
+ 
+    if (cartModel.hasItem(item.id)) {
+        cartModel.deleteItem(item.id);
+    } else {
+        cartModel.addItem(item);
+    }
+    modal.close();
+});
+
+events.on<{id:string}>("card : delete", (data) => {
+    cartModel.deleteItem(data.id);
+}) 
+
 
 renderBasket();
 renderForm();

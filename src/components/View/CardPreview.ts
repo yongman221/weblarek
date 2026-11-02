@@ -1,6 +1,7 @@
-import { ICardActions, TCardPreview } from "../../types";
+import { TCardPreview } from "../../types";
 import { categoryMap, CDN_URL } from "../../utils/constants";
 import { ensureElement } from "../../utils/utils";
+import { IEvents } from "../base/Events";
 import { Card } from "./Card";
 
 export class CardPreview extends Card<TCardPreview> {
@@ -9,7 +10,7 @@ export class CardPreview extends Card<TCardPreview> {
     protected descriptionElement: HTMLElement;
     protected basketButton: HTMLButtonElement;
 
-    constructor(container: HTMLElement, action?: ICardActions) {
+    constructor(protected events: IEvents ,container: HTMLElement) {
         super(container);
 
         this.imageElement = ensureElement<HTMLImageElement>('.card__image', this.container);
@@ -17,9 +18,9 @@ export class CardPreview extends Card<TCardPreview> {
         this.descriptionElement = ensureElement<HTMLElement>('.card__text', this.container);
         this.basketButton = ensureElement<HTMLButtonElement>('.card__button', this.container);
     
-        if (action?.onclick) {
-            this.basketButton.addEventListener('click', action.onclick);
-        }
+        this.basketButton.addEventListener("click", () => {
+            events.emit("card : buy");
+        })
     }
 
     set image(value: string) {
@@ -44,5 +45,9 @@ export class CardPreview extends Card<TCardPreview> {
 
     set buttonText(value: string) {
         this.basketButton.textContent = value;
+    }
+
+    set description(value: string) {
+        this.descriptionElement.textContent = value;
     }
 }

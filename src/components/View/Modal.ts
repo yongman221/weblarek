@@ -31,12 +31,12 @@ export class Modal extends Component<TModal> {
 
     close() {
         this.container.classList.remove(settings.modalActive);
-        this.events.emit("modal : close");
+        
     }
 
     open() {
         this.container.classList.add(settings.modalActive);
-        this.events.emit("modal : open");
+        
     }
 
     set content(value : HTMLElement) {
