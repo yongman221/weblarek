@@ -101,7 +101,7 @@ export type TModal = {
 };
 
 export type TSuccessOrder = {
-    description: number
+    description: number,
 };
 
 export type TBasket = {

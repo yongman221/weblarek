@@ -3,8 +3,6 @@ import { ensureElement } from "../../utils/utils";
 import { Component } from "../base/Component";
 import { IEvents } from "../base/Events";
 
-
-
 export class SuccessOrder extends Component<TSuccessOrder> {
     protected descriptionElement: HTMLElement;
     protected closeButton: HTMLButtonElement;

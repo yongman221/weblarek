@@ -1,7 +1,7 @@
 import { ICart, IProduct } from "../../types";
 import { IEvents } from "../base/Events";
 
-export class Cart implements ICart {
+export class CartModel implements ICart {
     private items: IProduct[] = [];
 
     constructor(protected events: IEvents) {

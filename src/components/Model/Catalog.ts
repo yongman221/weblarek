@@ -1,7 +1,7 @@
 import { ICatalog, IProduct } from "../../types";
 import { IEvents } from "../base/Events";
 
-export class Catalog implements ICatalog {
+export class CatalogModel implements ICatalog {
     private items: IProduct[] = [];
     private selectedCard: IProduct | undefined;
 
@@ -26,7 +26,7 @@ export class Catalog implements ICatalog {
     public setSelectedItem(productId: string): void {
         this.selectedCard = this.items.find((product: IProduct) => product.id === productId);
 
-        this.events.emit('catalog : changed');
+        this.events.emit('catalog : selected');
     }
 
     public getSelectedItem(): IProduct | undefined {
