@@ -1,5 +1,4 @@
 import { TCatalog } from "../../types";
-import { ensureElement } from "../../utils/utils";
 import { Component } from "../base/Component";
 
 export class Catalog extends Component<TCatalog> {
@@ -8,7 +7,7 @@ export class Catalog extends Component<TCatalog> {
     constructor(container: HTMLElement) {
         super(container);
 
-        this.catalogElement = ensureElement<HTMLElement>('.gallery', this.container);
+        this.catalogElement = container;
     }
 
     set items(value: HTMLElement[]) {

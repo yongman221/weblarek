@@ -14,7 +14,7 @@ export class CardPreview extends Card<TCardPreview> {
 
         this.imageElement = ensureElement<HTMLImageElement>('.card__image', this.container);
         this.categoryElement = ensureElement<HTMLElement>('.card__category', this.container);
-        this.descriptionElement = ensureElement<HTMLElement>('.card__description', this.container);
+        this.descriptionElement = ensureElement<HTMLElement>('.card__text', this.container);
         this.basketButton = ensureElement<HTMLButtonElement>('.card__button', this.container);
     
         if (action?.onclick) {
