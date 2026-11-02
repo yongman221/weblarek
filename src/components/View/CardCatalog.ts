@@ -1,4 +1,4 @@
-import { ICardActions, IProduct, TCardCatalog } from "../../types";
+import { ICardActions, TCardCatalog } from "../../types";
 import { categoryMap, CDN_URL } from "../../utils/constants";
 import { ensureElement } from "../../utils/utils";
 import { Card } from "./Card";

@@ -5,7 +5,6 @@ import { BuyerModel } from './components/Model/Buyer';
 import { CartModel } from './components/Model/Cart';
 import { CatalogModel } from './components/Model/Catalog';
 import { Basket } from './components/View/Basket';
-import { Card } from './components/View/Card';
 import { CardBasket } from './components/View/CardBasket';
 import { CardCatalog } from './components/View/CardCatalog';
 import { CardPreview } from './components/View/CardPreview';

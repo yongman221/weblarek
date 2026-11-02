@@ -1,4 +1,4 @@
-import { IBuyer, TOrderForm, TPayment } from "../../types";
+import { TOrderForm, TPayment } from "../../types";
 import { settings } from "../../utils/constants";
 import { ensureAllElements, ensureElement } from "../../utils/utils";
 import { IEvents } from "../base/Events";

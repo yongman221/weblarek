@@ -1,4 +1,4 @@
-import { IBuyer, IBuyerModel, TBuyError, TPayment } from "../../types";
+import { IBuyer, IBuyerModel, TBuyError } from "../../types";
 import { IEvents } from "../base/Events";
 
 export class BuyerModel implements IBuyerModel {
