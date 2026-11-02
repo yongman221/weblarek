@@ -82,7 +82,7 @@ function renderBasket() {
     header.render({counter: cartModel.getCount()});
 
     basket.render({
-        items: catalogModel.getItems().map((item, index) => {
+        items: cartModel.getItems().map((item, index) => {
             return new CardBasket(cloneTemplate<HTMLElement>("#card-basket"), {
                 onclick: () => cartModel.deleteItem(item.id)
             }).render({
@@ -126,12 +126,72 @@ function postOrder () {
     .then((result) => {
         modal.render({
             content: successOrder.render({
-                description: `Списано ${result.total} синапсов`,
+                description: result.total,
             })
-        })
+        });
+        cartModel.clear();
+        buyerModel.clear();
     })
-    .catch();
-    
-
-
+    .catch((error) => {
+        console.error(error);
+        contactsForm.render({
+            formError: "Не удалось оформить заказ",
+        })
+    });
 }
+
+// События моделей
+events.on("catalog : changed", renderCatalog);
+events.on("cart : changed", renderBasket);
+events.on("buyer : changed", renderForm);
+events.on("catalog : selected", renderPreview);
+
+// События представлений
+let formsStep: 'order' | 'contacts' = 'order';
+
+events.on("basket : order", () => {
+    modal.render({content: orderForm.render()})
+});
+
+events.on("basket : open", () => {
+    modal.render({
+        content: basket.render({
+        })
+    });
+    modal.open();
+});
+
+events.on("form : submit", () => {
+    if (formsStep === 'order') {
+        formsStep = "contacts"
+        modal.render({
+            content: contactsForm.render()
+        });
+    }
+    else {
+        postOrder();
+    }
+})
+
+events.on("order : change", (data) => {
+    buyerModel.setData(data);
+});
+
+events.on("contacts : change", (data) => {
+    buyerModel.setData(data);
+})
+
+events.on("success : close", () => {
+    modal.close();
+})
+
+renderBasket();
+renderForm();
+
+apiServer.getProduct()
+.then((result) => {
+    catalogModel.setItems(result.items);
+})
+.catch((error) => {
+    console.error(error);
+})

@@ -13,7 +13,7 @@ export class Basket extends Component<TBasket> {
 
         this.listElement = ensureElement<HTMLElement>('.basket__list', this.container);
         this.basketButton = ensureElement<HTMLButtonElement>('.basket__button', this.container);
-        this.priceElement = ensureElement<HTMLElement>('basket__price', this.container);
+        this.priceElement = ensureElement<HTMLElement>('.basket__price', this.container);
 
         this.basketButton.addEventListener('click', () => {
             this.events.emit('basket : order');

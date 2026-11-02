@@ -10,8 +10,8 @@ export class Form<T extends TForm> extends Component<T> {
     constructor(protected events: IEvents, container: HTMLElement) {
         super(container);
 
-        this.submitButton = ensureElement<HTMLButtonElement>('.order__button', this.container);
-        this.errorElement = ensureElement<HTMLElement>('form__errors', this.container);
+        this.submitButton = ensureElement<HTMLButtonElement>('button[type="submit"]', this.container);
+        this.errorElement = ensureElement<HTMLElement>('.form__errors', this.container);
 
         this.container.addEventListener('submit', (event) => {
             event.preventDefault();
