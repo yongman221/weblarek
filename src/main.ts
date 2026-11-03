@@ -15,6 +15,7 @@ import { Modal } from './components/View/Modal';
 import { OrderForm } from './components/View/OrderForm';
 import { SuccessOrder } from './components/View/SuccessOrder';
 import './scss/styles.scss';
+import { TeventsUserId } from './types';
 import { API_URL } from './utils/constants';
 import { cloneTemplate, ensureElement } from './utils/utils';
 
@@ -75,7 +76,7 @@ function renderBasket() {
         items: cartModel.getItems().map((item, index) => {
             return new CardBasket(cloneTemplate<HTMLElement>("#card-basket"), {
                 onclick: () => {
-                    events.emit("card : delete", {id: item.id})
+                    events.emit("basket-card : select", {id: item.id})
                 }
             }).render({
                 title: item.title,
@@ -171,11 +172,11 @@ events.on("success : close", () => {
     modal.close();
 });
 
-events.on<{id: string}>("card : select", (data) => {
+events.on<TeventsUserId>("card : select", (data) => {
     catalogModel.setSelectedItem(data.id);
 });
 
-events.on<{id: string}>("card : buy", () => {
+events.on("card : action", () => {
     const item = catalogModel.getSelectedItem()
     if (!item) return;
  
@@ -187,7 +188,7 @@ events.on<{id: string}>("card : buy", () => {
     modal.close();
 });
 
-events.on<{id:string}>("card : delete", (data) => {
+events.on<TeventsUserId>("basket-card : select", (data) => {
     cartModel.deleteItem(data.id);
 }) 
 

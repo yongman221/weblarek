@@ -19,7 +19,7 @@ export class CardPreview extends Card<TCardPreview> {
         this.basketButton = ensureElement<HTMLButtonElement>('.card__button', this.container);
     
         this.basketButton.addEventListener("click", () => {
-            events.emit("card : buy");
+            events.emit("card : action");
         })
     }
 

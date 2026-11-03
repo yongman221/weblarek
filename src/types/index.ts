@@ -109,3 +109,7 @@ export type TBasket = {
     price: number,
     buttonActive: boolean,
 };
+
+export type TeventsUserId = {
+    id: string,
+};
